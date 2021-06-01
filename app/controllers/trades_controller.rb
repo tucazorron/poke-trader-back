@@ -1,8 +1,6 @@
 class TradesController < ApplicationController
     skip_before_action :verify_authenticity_token
 
-    require 'rest-client'
-
     def index
         @trades = Trade.all
         render json: @trades, status: :ok

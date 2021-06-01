@@ -1,6 +1,4 @@
 class TradeService
-    # attr_reader :player1, :player2
-
     require 'rest-client'
 
     def initialize(player1, player2)
