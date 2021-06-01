@@ -6,8 +6,6 @@ class TradeService
     def initialize(params)
         @player1 = params[:player1]
         @player2 = params[:player2]
-        puts "initalize"
-        puts @player1, @player2
     end
 
     def trade_params_service
@@ -24,8 +22,6 @@ class TradeService
 
     def concat_pokemons(player)
         pokemons = ""
-        puts "concat"
-        puts player
         player.each do |p|
             if pokemons != ""
                 pokemons += ", " 
