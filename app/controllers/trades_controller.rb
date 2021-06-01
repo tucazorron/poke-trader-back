@@ -23,5 +23,6 @@ class TradesController < ApplicationController
 
     def trade_params
         params.require(:trade).permit(:player1, :player2)
+        params
     end
 end
