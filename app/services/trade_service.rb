@@ -1,23 +1,24 @@
 class TradeService
-    attr_reader :player1, :player2
+    # attr_reader :player1, :player2
 
     require 'rest-client'
 
-    def initialize(params)
-        @player1 = params[:player1]
-        @player2 = params[:player2]
+    def initialize(player1, player2)
+        @player1 = player1
+        @player2 = player2
     end
 
     def trade_params_service
         baseexp1 = find_base_exp(@player1)
         baseexp2 = find_base_exp(@player2)
-        {
+        trade = {
             player1: concat_pokemons(@player1),
             player2: concat_pokemons(@player2),
             baseexp1: baseexp1,
             baseexp2: baseexp2,
             fair: is_fair?(baseexp1, baseexp2)
         }
+        trade
     end
 
     def concat_pokemons(player)
@@ -43,6 +44,6 @@ class TradeService
 
     def is_fair?(baseexp1, baseexp2)
         is_fair = (baseexp1 - baseexp2).abs
-        return is_fair < 16
+        is_fair < 16
     end
 end
