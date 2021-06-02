@@ -20,8 +20,8 @@ MongoDB
 
 | Coluna | Tipo | Dado |
 |--------|------|------|
-| player1 | string | concatenacao dos pokemons do player 1 |
-| player2 | string | concatenacao dos pokemons do player 2 |
+| player1 | string | concantenação dos pokemons do player 1 |
+| player2 | string | concantenação dos pokemons do player 2 |
 | baseexp1 | integer | soma dos "base_experience" dos pokemons do player 1 |
 | baseexp2 | integer | soma dos "base_experience" dos pokemons do player 2 |
 | fair | boolean | booleano indicando se a troca foi justa ou não
