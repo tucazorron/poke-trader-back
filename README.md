@@ -1,24 +1,61 @@
-# README
+# Poke Trader - Backend
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Desenvolvedor
 
-Things you may want to cover:
+Artur Zorron
 
-* Ruby version
+---
 
-* System dependencies
+## Banco de Dados
 
-* Configuration
+MongoDB
 
-* Database creation
+---
 
-* Database initialization
+## Modelo
 
-* How to run the test suite
+| Coluna | Tipo | Dado |
+|--------|------|------|
+| player1 | string | concatenacao dos pokemons do player 1 |
+| player2 | string | concatenacao dos pokemons do player 2 |
+| baseexp1 | integer | soma dos "base_experience" dos pokemons do player 1 |
+| baseexp2 | integer | soma dos "base_experience" dos pokemons do player 2 |
+| fair | boolean | booleano indicando se a troca foi justa ou não
 
-* Services (job queues, cache servers, search engines, etc.)
+---
 
-* Deployment instructions
+## Endpoints
 
-* ...
+| Requisição | Endereço | Método | Função |
+|------------|----------|--------|--------|
+| POST | "/trades" | trades#create | cria troca realizada no banco de dados |
+| GET | "/" | trades#index | lista todos os objetos salvos no banco de dados
+
+---
+
+## Fluxo ( POST => "/trades" )
+
+- Recebe requisição do frontend contendo duas listas de objetos. Cada objeto possui o id do pokemon e o nome do pokemon
+
+Ex:
+```json
+{
+	"player1": [{"value": 1, "label": "bulbasaur"}, {"value": 2, "label": "ivysaur"}],
+	"player2": [{"value": 3, "label": "venusaur"}, {"value": 4, "label": "charmander"}]
+}
+```
+
+- Repassa as duas listas recebidas para o serviço do backend para tratar os dados antes de salvar
+- Concatena os pokemons de cada player e coloca em `player1` ou `player2`
+- Calcula a soma dos `base_experience` de cada player e coloca em `baseexp1` ou `baseexp2`. Faz uma requisição a `http://pokeapi.co/api/v2/pokemon/{id}` onde {id} é o id do pokemon no momento. O retorno desta chamada são várias informações do pokemons e uma delas é o `base_experience`
+- Calcula a diferença absoluta entre `baseexp1` e `baseexp2`. Caso seja menor que 16, `fair` recebe `True`. Caso contrário, `fair` recebe `False`
+- Repassa pra controller um `json` com os dados tratados e de acordo como serão salvos no backend
+- Envia para o frontend o objeto salvo no banco de dados
+
+---
+
+## Fluxo ( GET => "/" )
+
+- Recebe a requisição do frontend pedindo a lista de todos os objetos do banco
+- Cria um elemento que recebe todos os elementos do banco de dados
+- Envia para o frontend uma lista de todos esses objetos
