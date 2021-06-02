@@ -6,6 +6,12 @@ Artur Zorron
 
 ---
 
+## Framework
+
+Ruby on Rails
+
+---
+
 ## Banco de Dados
 
 MongoDB
